@@ -1,0 +1,88 @@
+{
+  "$schema": "https://puremourning.github.io/vimspector/schema/vimspector.schema.json",
+  "adapters": {
+    "run_with_debugpy": {
+      "command": [ "${workspaceRoot}/run_with_debugpy" ],
+      "port": 9876,
+      "env": {
+        "DEBUG_PORT": "9876"
+      }
+    },
+    "python-remote-docker": {
+      "variables": {
+        "port": "8765"
+      },
+      "port": "${port}",
+      "launch": {
+        "remote": {
+          "container": "${ContainerID}",
+          "runCommand": [
+            "python3", "-m", "debugpy", "--listen", "0.0.0.0:${port}",
+                                        "--wait-for-client",
+                                        "%CMD%"
+          ]
+        },
+        "delay": "5000m"
+      }
+    },
+    "python-remote-ssh": {
+      "variables": {
+        "port": "8765"
+      },
+      "port": "${port}",
+      "host": "${host}",
+      "launch": {
+        "remote": {
+          "host": "${host}",
+          "account": "${account}",
+          "runCommand": [
+            "python3", "-m", "debugpy", "--listen", "0.0.0.0:${port}",
+                                        "--wait-for-client",
+                                        "%CMD%"
+          ]
+        }
+      }
+    }
+  },
+  "configurations": {
+    "run - generate.py": {
+      "adapter": "debugpy",
+      "configuration": {
+        "request": "launch",
+        "type": "python",
+        "cwd": "${workspaceRoot}",
+        "program": "${workspaceRoot}/generate.py",
+        "stopOnEntry": true,
+        "console": "integratedTerminal",
+        "args" : ["--gpus", "0", "--model", "gdrive:bedrooms-snapshot.pkl", "--output-dir", "images", "--images-num", "32"]
+      },
+      "breakpoints": {
+        "exception": {
+          "raised": "N",
+          "uncaught": "",
+          "userUnhandled": ""
+        }
+      }
+    },
+    "run - run_network.py": {
+      "adapter": "debugpy",
+      "configuration": {
+        "request": "launch",
+        "type": "python",
+        "cwd": "${workspaceRoot}",
+        "program": "${workspaceRoot}/run_network.py",
+        "stopOnEntry": true,
+        "console": "integratedTerminal",
+        "args" : ["--eval", "--gpus", "0", "--expname", "clevr-exp", "--dataset", "clevr", "--pretrained-pkl", "gdrive:clevr-snapshot.pkl"]
+      },
+      "breakpoints": {
+        "exception": {
+          "raised": "N",
+          "uncaught": "",
+          "userUnhandled": ""
+        }
+      }
+    }
+  }
+}
+
