@@ -45,6 +45,82 @@
     }
   },
   "configurations": {
+    "run - generate.alldir.py": {
+      "adapter": "debugpy",
+      "configuration": {
+        "request": "launch",
+        "type": "python",
+        "cwd": "${workspaceRoot}",
+        "program": "${workspaceRoot}/generate.alldir.py",
+        "stopOnEntry": true,
+        "console": "integratedTerminal",
+        "args" : ["--gpus", "0", "--model", "gdrive:bedrooms-snapshot.pkl", "--output-dir", "images", "--images-num", "32"]
+      },
+      "breakpoints": {
+        "exception": {
+          "raised": "N",
+          "uncaught": "",
+          "userUnhandled": ""
+        }
+      }
+    },
+    "run - generate.onedir.py": {
+      "adapter": "debugpy",
+      "configuration": {
+        "request": "launch",
+        "type": "python",
+        "cwd": "${workspaceRoot}",
+        "program": "${workspaceRoot}/generate.onedir.py",
+        "stopOnEntry": true,
+        "console": "integratedTerminal",
+        "args" : ["--gpus", "0", "--model", "gdrive:bedrooms-snapshot.pkl", "--output-dir", "images", "--images-num", "32"]
+      },
+      "breakpoints": {
+        "exception": {
+          "raised": "N",
+          "uncaught": "",
+          "userUnhandled": ""
+        }
+      }
+    },
+    "run - generate.interp.py": {
+      "adapter": "debugpy",
+      "configuration": {
+        "request": "launch",
+        "type": "python",
+        "cwd": "${workspaceRoot}",
+        "program": "${workspaceRoot}/generate.interp.py",
+        "stopOnEntry": true,
+        "console": "integratedTerminal",
+        "args" : ["--gpus", "0", "--model", "gdrive:bedrooms-snapshot.pkl", "--output-dir", "images", "--images-num", "32"]
+      },
+      "breakpoints": {
+        "exception": {
+          "raised": "N",
+          "uncaught": "",
+          "userUnhandled": ""
+        }
+      }
+    },
+    "run - generate.style_mix.py": {
+      "adapter": "debugpy",
+      "configuration": {
+        "request": "launch",
+        "type": "python",
+        "cwd": "${workspaceRoot}",
+        "program": "${workspaceRoot}/generate.style_mix.py",
+        "stopOnEntry": true,
+        "console": "integratedTerminal",
+        "args" : ["--gpus", "0", "--model", "gdrive:bedrooms-snapshot.pkl", "--output-dir", "images", "--images-num", "32"]
+      },
+      "breakpoints": {
+        "exception": {
+          "raised": "N",
+          "uncaught": "",
+          "userUnhandled": ""
+        }
+      }
+    },
     "run - generate.py": {
       "adapter": "debugpy",
       "configuration": {
