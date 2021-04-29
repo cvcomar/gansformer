@@ -26,9 +26,7 @@ def shuffle1(data):
 def shuffle2(data):
     data1 = np.copy(data[0])
     data2 = np.copy(data[1])
-    cut1 = data1[:data1.shape[0] // 2,:]
-    cut2 = data2[data2.shape[0] // 2:,:]
-    merge = np.concatenate([cut1, cut2])
+    merge = np.concatenate([data1[data1.shape[0] // 2:,:],data2[:data2.shape[0] // 2,:]])
     merge = np.expand_dims(merge,axis=0)
 
     return merge
@@ -41,7 +39,7 @@ def run(model, gpus, output_dir, images_num, truncation_psi, batch_size, ratio):
 
     print("Generate images...")
     with open('./latents.pkl', 'rb') as f:
-        latents = pickle.load(f)[:2]
+        latents = pickle.load(f)
 
     container = []
 

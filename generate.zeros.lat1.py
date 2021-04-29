@@ -17,22 +17,6 @@ from pretrained_networks import load_networks # returns G, D, Gs
 # G: generator, D: discriminator, Gs: generator moving-average (higher quality images)
 
 
-def shuffle1(data):
-    for i in range(0,data.shape[0],2):
-        backup = np.copy(data[i])
-        data[i][0::2] = data[i + 1][0::2]
-        data[i + 1][0::2] = backup[0::2]
-
-def shuffle2(data):
-    data1 = np.copy(data[0])
-    data2 = np.copy(data[1])
-    cut1 = data1[:data1.shape[0] // 2,:]
-    cut2 = data2[data2.shape[0] // 2:,:]
-    merge = np.concatenate([cut1, cut2])
-    merge = np.expand_dims(merge,axis=0)
-
-    return merge
-
 def run(model, gpus, output_dir, images_num, truncation_psi, batch_size, ratio):
     print("Loading networks...")
     os.environ["CUDA_VISIBLE_DEVICES"] = gpus                   # Set GPUs
@@ -41,17 +25,13 @@ def run(model, gpus, output_dir, images_num, truncation_psi, batch_size, ratio):
 
     print("Generate images...")
     with open('./latents.pkl', 'rb') as f:
-        latents = pickle.load(f)[:2]
+        latents = pickle.load(f)
 
-    container = []
+    for i in range(0, 15):
+        latents[i][i,:] = 0
 
-    for i in range(0, latents.shape[0],2):
-        merge = shuffle2(latents[i:i+2])
-        images = Gs.run(merge, truncation_psi = truncation_psi,   # Generate images
-            minibatch_size = batch_size, verbose = True)[0]
-        container.append(images)
-
-    images = np.concatenate(container,axis=0)
+    images = Gs.run(latents, truncation_psi = truncation_psi,   # Generate images
+        minibatch_size = batch_size, verbose = True)[0]
 
     print("Saving images...")
     os.makedirs(output_dir, exist_ok = True)                    # Make output directory

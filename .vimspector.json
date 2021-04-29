@@ -45,6 +45,25 @@
     }
   },
   "configurations": {
+    "run - generate.zeros.py": {
+      "adapter": "debugpy",
+      "configuration": {
+        "request": "launch",
+        "type": "python",
+        "cwd": "${workspaceRoot}",
+        "program": "${workspaceRoot}/generate.zeros.py",
+        "stopOnEntry": true,
+        "console": "integratedTerminal",
+        "args" : ["--gpus", "0", "--model", "gdrive:bedrooms-snapshot.pkl", "--output-dir", "images", "--images-num", "32"]
+      },
+      "breakpoints": {
+        "exception": {
+          "raised": "N",
+          "uncaught": "",
+          "userUnhandled": ""
+        }
+      }
+    },
     "run - generate.alldir.py": {
       "adapter": "debugpy",
       "configuration": {
